@@ -32,7 +32,7 @@ try:
     smtp = smtplib.SMTP(os.getenv("IP_SMTP"), os.getenv("PORT_SMTP"))
 
    #Use TLS to add security
-    smtp.starttls()
+    #smtp.starttls()
 
     #Defining The Message
 
@@ -60,7 +60,7 @@ try:
 
     #Sending the Email
     smtp.sendmail(os.getenv("FROM_PART"), [os.getenv("TO_PART")]+[os.getenv("TO_PART_GIVEN_TEAM")]+[os.getenv("CC_PART")],msg.as_string())
-
+    
     #Terminating the session
     smtp.quit()
     print ("Email sent successfully!")
