@@ -1,8 +1,3 @@
-# Python package
-# Create and test a Python package on multiple Python versions.
-# Add steps that analyze code, save the dist with the build record, publish to a PyPI-compatible index, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/python
-
 trigger:
 - master
 
@@ -13,9 +8,24 @@ steps:
   inputs:
     versionSpec: '3.9'
 
-
 - script: python -m pip install --upgrade pip setuptools wheel
   displayName: 'Install tools'
 
 - script: pip install -r requirements.txt
   displayName: 'Install requirements'
+  
+- task: DownloadSecureFile@1
+  inputs:
+    secureFile: ‘.env’
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: $(Agent.TempDirectory)
+    Contents: ‘**\.env’
+    TargetFolder: $(Build.SourcesDirectory)  
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
