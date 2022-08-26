@@ -8,11 +8,12 @@ steps:
   inputs:
     versionSpec: '3.9'
 
-- script: python -m pip install --upgrade pip setuptools wheel
-  displayName: 'Install tools'
-
-- script: pip install -r requirements.txt
-  displayName: 'Install requirements'
+- script: |
+     python -m venv antenv
+     source antenv/bin/activate
+     python -m pip install --upgrade pip
+     pip install setup
+     pip install -r requirements.txt
   
 - task: DownloadSecureFile@1
   inputs:
