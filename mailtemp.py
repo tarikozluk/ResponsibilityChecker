@@ -73,6 +73,6 @@ except Exception as ex:
     errorlines=["Responsiblity Checker", 'E-Mail: Sent Failed to {}:_{}'.format(os.getenv("PLATFORM_EKIP"),datetime.now().date())]
     print("Something went wrong....",ex)
     with open('Responsiblity Sender Info_{}.txt'.format(datetime.now().date()), 'w') as f:
-        for line in lines:
+        for line in errorlines:
             f.write(line)
             f.write('\n')
