@@ -10,7 +10,7 @@ class BaseObject:
         self.responsible = Responsible
 
 
-def GetWrongDefiniations(Standart, LikeQuery):
+def GetWrongDefinitions(Standart, LikeQuery):
     result = []
     conn = pyodbc.connect(os.getenv("CONNECTION_STRING"))
     cursor = conn.cursor()
@@ -20,7 +20,25 @@ def GetWrongDefiniations(Standart, LikeQuery):
         result.append(obj)
 
     return result
-#print(GetWrongDefiniations("DT-Uygulama Yonetimi", "uyg")[0].serverName)
+
+
+def loadStandarts():
+    result = []
+
+    result.append(os.getenv("UYGULAMA_STANDART"))
+    result.append(os.getenv("VERITABANI_STANDART"))
+    result.append(os.getenv("DREAM_STANDART"))
+    result.append(os.getenv("TURIZM_STANDART"))
+    result.append(os.getenv("DIJITALCOZUM_STANDART"))
+    result.append(os.getenv("MOBILITE_STANDART"))
+    result.append(os.getenv("DEPOLAMA_STANDART"))
+    result.append(os.getenv("BILGI_STANDART"))
+
+    return result
+
+
+
+#print(GetWrongDefinitions("DT-Uygulama Yonetimi", "uyg")[0].serverName)
 
 # print(type(getResult()))
 # print(type(getResult()[0].serverName))
