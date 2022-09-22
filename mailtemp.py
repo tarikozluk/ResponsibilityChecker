@@ -8,17 +8,16 @@ import os
 load_dotenv()
 
 
-
 try:
-
-    result = dbconnector.GetWrongDefiniations(os.getenv("UYGULAMA_STANDART"), os.getenv("UYGULAMA_LIKE"))
-    result += dbconnector.GetWrongDefiniations(os.getenv("VERITABANI_STANDART"), os.getenv("VERITABANI_LIKE"))
-    result += dbconnector.GetWrongDefiniations(os.getenv("DREAM_STANDART"), os.getenv("DREAM_LIKE"))
-    result += dbconnector.GetWrongDefiniations(os.getenv("TURIZM_STANDART"), os.getenv("TURIZM_LIKE"))
-    result += dbconnector.GetWrongDefiniations(os.getenv("DIJITALCOZUM_STANDART"), os.getenv("DIJITALCOZUM_LIKE"))
-    result += dbconnector.GetWrongDefiniations(os.getenv("MOBILITE_STANDART"), os.getenv("MOBILITE_LIKE"))
-    result += dbconnector.GetWrongDefiniations(os.getenv("DEPOLAMA_STANDART"), os.getenv("DEPOLAMA_LIKE"))
-    result += dbconnector.GetWrongDefiniations(os.getenv("BILGI_STANDART"),os.getenv("BILGI_LIKE"))
+    standarts = dbconnector.loadStandarts()
+    result = dbconnector.GetWrongDefinitions(standarts[0], os.getenv("UYGULAMA_LIKE"))
+    result += dbconnector.GetWrongDefinitions(standarts[1], os.getenv("VERITABANI_LIKE"))
+    result += dbconnector.GetWrongDefinitions(standarts[2], os.getenv("DREAM_LIKE"))
+    result += dbconnector.GetWrongDefinitions(standarts[3], os.getenv("TURIZM_LIKE"))
+    result += dbconnector.GetWrongDefinitions(standarts[4], os.getenv("DIJITALCOZUM_LIKE"))
+    result += dbconnector.GetWrongDefinitions(standarts[5], os.getenv("MOBILITE_LIKE"))
+    result += dbconnector.GetWrongDefinitions(standarts[6], os.getenv("DEPOLAMA_LIKE"))
+    result += dbconnector.GetWrongDefinitions(standarts[7],os.getenv("BILGI_LIKE"))
 
 
 
@@ -36,9 +35,12 @@ try:
 
     #Defining The Message
 
-    Standart = os.getenv("UYGULAMA_STANDART")
+    Standart = ""
 
-    Content_Title = "Değiştirilmesi gereken kısımlar aşağıda belirtilmiştir, <br> <hr> Standart: {} şeklindedir.<br><br>".format(Standart)
+    for i in len(standarts):
+        Standart += "<li> {} </li>".format(standarts[i])
+
+    Content_Title = "Değiştirilmesi gereken kısımlar aşağıda belirtilmiştir, <br> <hr> Standartlar Ekipler için: <br> {} <br> şeklindedir.<br><br>".format(Standart)
 
     Content_End = "<br><br> Bu mail otomatik olarak <b>{}</b> tarihinde gönderilmiştir. <br><br>".format(datetime.now().date())
 
